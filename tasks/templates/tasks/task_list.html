@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your Tasks</h2>
+<form method="get">
+    <label>Filter by Due Date:</label>
+    <input type="date" name="due_date" value="{{ request.GET.due_date }}">
+    <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+</form>
+<a href="{% url 'task_create' %}" class="btn btn-success btn-sm mt-2">Add Task</a>
+<table class="table mt-3">
+    <tr><th>Title</th><th>Due Date</th><th>Status</th><th>Actions</th></tr>
+    {% for task in tasks %}
+    <tr>
+        <td><a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a></td>
+        <td>{{ task.due_date }}</td>
+        <td>{% if task.is_completed %}<span class="text-success">Completed</span>{% else %}Pending{% endif %}</td>
+        <td>
+            <a href="{% url 'task_update' task.pk %}" class="btn btn-warning btn-sm">Edit</a>
+            <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No tasks available.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

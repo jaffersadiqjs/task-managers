@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ object.title }}</h2>
+<p>{{ object.description }}</p>
+<p>Due Date: {{ object.due_date }}</p>
+<p>Status: {% if object.is_completed %}Completed{% else %}Pending{% endif %}</p>
+<a href="{% url 'task_update' object.pk %}" class="btn btn-warning btn-sm">Edit</a>
+<a href="{% url 'task_delete' object.pk %}" class="btn btn-danger btn-sm">Delete</a>
+<a href="{% url 'task_list' %}" class="btn btn-secondary btn-sm">Back</a>
+{% endblock %}
